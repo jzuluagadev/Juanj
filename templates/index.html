@@ -33,7 +33,9 @@
     <section id="productos" class="gallery">
         {% for product in products %}
         <div class="item">
-            <img src="{{ url_for('static', filename=product.image_url) }}" alt="{{ product.name }}">
+            <div class="image-container">
+                <img src="{{ url_for('static', filename=product.image_url) }}" alt="{{ product.name }}">
+            </div>
             <div class="product-info">
                 <h3>{{ product.name }}</h3>
                 <p class="price">${{ "%.2f"|format(product.price) }}</p>

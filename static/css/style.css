@@ -1,22 +1,27 @@
 :root {
-    --primary-color: #567aee;
-    --secondary-color: #77aaff;
-    --text-color: #333;
-    --background-color: #f4f4f4;
+    --primary-color: #1a1a1a;    /* Negro elegante */
+    --secondary-color: #c0a080;  /* Dorado elegante */
+    --accent-color: #d4af37;     /* Dorado brillante */
+    --text-color: #2c2c2c;       /* Negro suave */
+    --background-color: #f9f9f9; /* Blanco hueso */
     --white: #ffffff;
+    --gold: #d4af37;            /* Dorado */
+    --silver: #c0c0c0;          /* Plateado */
+    --shadow-color: rgba(26, 26, 26, 0.1);
 }
 
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    box-sizing: border-box; 
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Playfair Display', serif;
     line-height: 1.6;
     background-color: var(--background-color);
     color: var(--text-color);
+    letter-spacing: 0.5px;
 }
 
 .container {
@@ -27,10 +32,13 @@ body {
 
 /* Header Styles */
 header {
-    background: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-color), #2c2c2c);
     color: var(--white);
-    padding: 1rem 0;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 1.5rem 0;
+    box-shadow: 0 2px 15px var(--shadow-color);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 header .container {
@@ -49,11 +57,26 @@ nav a {
     color: var(--white);
     text-decoration: none;
     font-weight: 500;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+    position: relative;
 }
 
-nav a:hover {
-    color: var(--secondary-color);
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--secondary-color);
+    transition: width 0.3s ease;
+}
+
+nav a:hover::after {
+    width: 100%;
 }
 
 /* Gallery Styles */
@@ -61,58 +84,122 @@ nav a:hover {
     display: flex;
     flex-wrap: nowrap;
     justify-content: center;
-    gap: 2rem;
-    padding: 2rem 0;
+    gap: 2.5rem;
+    padding: 3rem 0;
     overflow-x: auto;
     margin: 0 auto;
     max-width: 1200px;
+    scroll-behavior: smooth;
 }
 
 .gallery .item {
-    flex: 0 0 300px;
+    flex: 0 0 320px;
     background: var(--white);
-    border-radius: 10px;
+    border-radius: 15px;
     overflow: hidden;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
+    box-shadow: 0 5px 20px var(--shadow-color);
+    transition: all 0.5s ease;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    border: 1px solid var(--secondary-color);
+    position: relative;
 }
 
 .gallery .item:hover {
-    transform: translateY(-5px);
+    transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+    box-shadow: 0 20px 40px var(--shadow-color);
 }
 
 .gallery img {
     width: 100%;
-    height: 300px;
+    height: 320px;
     object-fit: cover;
+    transition: transform 0.5s ease;
+    filter: brightness(0.95);
 }
 
+.gallery .item:hover img {
+    transform: scale(1.05);
+    filter: brightness(1);
+}
+
+.gallery .product-info {
+    padding: 1.5rem;
+    background: var(--white);
+    transform: translateZ(20px);
+}
+
+.gallery .product-info h3 {
+    margin: 0 0 0.8rem 0;
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+}
+
+.gallery .product-info .price {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: var(--secondary-color);
+    margin-bottom: 1.2rem;
+    letter-spacing: 1px;
+}
+
+/* Efecto de brillo al hover */
+.gallery .item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+}
+
+.gallery .item:hover::before {
+    transform: translateX(100%);
+}
+
+/* Efecto de profundidad en el botón */
 .gallery button {
     width: 100%;
-    padding: 1rem;
-    background: var(--primary-color);
+    padding: 1.2rem;
+    background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
     color: var(--white);
     border: none;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
+    transform: translateZ(10px);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+    border-radius: 5px;
 }
 
 .gallery button:hover {
-    background: var(--secondary-color);
+    background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+    transform: translateZ(20px) scale(1.02);
+    box-shadow: 0 5px 15px var(--shadow-color);
 }
 
 /* Cart Styles */
 .cart {
     background: var(--white);
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    padding: 2.5rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px var(--shadow-color);
     margin-top: 2rem;
+    border: 1px solid var(--secondary-color);
 }
 
 .cart h2 {
     color: var(--primary-color);
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    letter-spacing: 1px;
 }
 
 .cart ul {
@@ -120,19 +207,20 @@ nav a:hover {
 }
 
 .cart li {
-    padding: 1rem;
-    border-bottom: 1px solid #eee;
+    padding: 1.2rem;
+    border-bottom: 1px solid rgba(192, 160, 128, 0.2);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-size: 1.1rem;
 }
 
 /* Footer Styles */
 footer {
-    background: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-color), #2c2c2c);
     color: var(--white);
-    padding: 2rem 0;
-    margin-top: 3rem;
+    padding: 3rem 0;
+    margin-top: 4rem;
     text-align: center;
 }
 
@@ -144,6 +232,26 @@ footer a {
 
 footer a:hover {
     color: var(--secondary-color);
+}
+
+.social-links a {
+    color: var(--white);
+    text-decoration: none;
+    margin: 0 1.5rem;
+    transition: all 0.3s ease;
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    border-radius: 30px;
+    background: rgba(192, 160, 128, 0.1);
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+}
+
+.social-links a:hover {
+    background: rgba(192, 160, 128, 0.2);
+    transform: translateY(-3px);
+    color: var(--secondary-color);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
 /* Responsive Design */

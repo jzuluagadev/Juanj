@@ -1,13 +1,19 @@
 <!-- filepath: /c:/Users/usuario/Desktop/Juanj/templates/index.html -->
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZUGAR - Joyas y Accesorios</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+
 <body>
     <header>
         <div class="container">
@@ -17,7 +23,8 @@
                     <li><a href="{{ url_for('home') }}">Inicio</a></li>
                     <li><a href="#productos">Productos</a></li>
                     <li><a href="#contacto">Contacto</a></li>
-                    <li><a href="#" id="cart-icon"><i class="fas fa-shopping-cart"></i> <span id="cart-count">0</span></a></li>
+                    <li><a href="#" id="cart-icon"><i class="fas fa-shopping-cart"></i> <span
+                                id="cart-count">0</span></a></li>
                 </ul>
             </nav>
         </div>
@@ -25,7 +32,7 @@
 
     <section class="showcase">
         <div class="container">
-            <h1>Bienvenido a ZUGAR</h1>
+            <h1>ZUGAR ACCESORIOS</h1>
             <p>Descubre nuestra exclusiva colección de joyas y accesorios</p>
         </div>
     </section>
@@ -50,7 +57,7 @@
                 <!-- Los artículos del carrito se agregarán aquí -->
             </ul>
             <div class="cart-total">
-                <h3>Total: $<span id="cart-total">0.00</span></h3>
+                <h3>Total: $<span id="cart-total-amount">0.00</span></h3>
                 <button onclick="checkout()">Proceder al pago</button>
             </div>
         </div>
@@ -74,6 +81,11 @@
         </div>
     </footer>
 
+    <!-- Botón flotante de WhatsApp -->
+    <a href="https://wa.me/573204835708" class="whatsapp-button" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
     <script>
         let cart = [];
         const cartSection = document.getElementById('cart-section');
@@ -96,11 +108,11 @@
                     quantity: 1
                 })
             })
-            .then(response => response.json())
-            .then(data => {
-                updateCart();
-            })
-            .catch(error => console.error('Error:', error));
+                .then(response => response.json())
+                .then(data => {
+                    updateCart();
+                })
+                .catch(error => console.error('Error:', error));
         }
 
         function updateCart() {
@@ -114,4 +126,5 @@
         }
     </script>
 </body>
+
 </html>

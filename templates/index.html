@@ -1,107 +1,12 @@
 <!-- filepath: /c:/Users/usuario/Desktop/Juanj/templates/index.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZUGAR</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        header {
-            background: #333;
-            color: #ffffff;
-            padding-top: 30px;
-            min-height: 70px;
-            border-bottom: #77aaff 3px solid;
-        }
-        header a {
-            color: #fff;
-            text-decoration: none;
-            text-transform: uppercase;
-            font-size: 16px;
-        }
-        header ul {
-            padding: 0;
-            list-style: none;
-        }
-        header li {
-            float: left;
-            display: inline;
-            padding: 0 20px 0 20px;
-        }
-        .showcase {
-            min-height: 150px;
-            background: url('https://via.placeholder.com/1200x400') no-repeat 0 -400px;
-            text-align: center;
-            color: #567aee;
-        }
-        .showcase h1 {
-            margin-top: 100px;
-            font-size: 55px;
-            margin-bottom: 10px;
-        }
-        .showcase p {
-            font-size: 20px;
-        }
-        .gallery {
-            display: flex; /* Activa Flexbox */
-            flex-wrap: wrap; /* Permite que los elementos se envuelvan si no caben */
-            justify-content: space-between; /* Espacio uniforme entre los elementos */
-            gap: 5px; /* Espaciado entre los elementos */
-            margin-top: 20px;
-        }
-        .gallery .item {
-            flex: 1 1 calc(25% - 20px); /* Cada elemento ocupa un tercio del ancho del contenedor */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            background: #fff;
-            padding: 10px;
-            border-radius: 5px;
-        }
-        .gallery img {
-            max-width: 40%; /* Limita el ancho máximo al 100% del contenedor */
-            height: auto; /* Mantiene la proporción de la imagen */
-            display: block; /* Elimina el espacio extra debajo de las imágenes */
-            margin: 0 auto; /* Centra la imagen dentro del contenedor */
-        }
-        .gallery button {
-            background-color: #3b9fd1;
-            color: #fff;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 10px;
-            border-radius: 5px;
-        }
-        .cart {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(58, 142, 194, 0.1);
-        }
-        .cart h2 {
-            margin-top: 0;
-        }
-        .cart ul {
-            list-style: none;
-            padding: 0;
-        }
-        .cart li {
-            padding: 10px;
-            border-bottom: 1px solid #ccc;
-        }
-    </style>
+    <title>ZUGAR - Joyas y Accesorios</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <header>
@@ -109,57 +14,104 @@
             <h1>ZUGAR</h1>
             <nav>
                 <ul>
-                    <li><a href="#">Inicio</a></li>
-                    <li><a href="#">Galería</a></li>
-                    <li><a href="#">Contacto</a></li>
+                    <li><a href="{{ url_for('home') }}">Inicio</a></li>
+                    <li><a href="#productos">Productos</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                    <li><a href="#" id="cart-icon"><i class="fas fa-shopping-cart"></i> <span id="cart-count">0</span></a></li>
                 </ul>
             </nav>
         </div>
     </header>
+
     <section class="showcase">
         <div class="container">
-            <h1>Bienvenido a nuestra tienda de joyas</h1>
-            <p>Encuentra las mejores joyas aquí</p>
+            <h1>Bienvenido a ZUGAR</h1>
+            <p>Descubre nuestra exclusiva colección de joyas y accesorios</p>
         </div>
     </section>
-    <section class="gallery">
-        <div class="container">
-            <div class="item">
-                <img src="{{ url_for('static', filename='images/joyas1.png') }}" alt="Joya 1">
-            <button onclick="addToCart('Joya 1')">Agregar al carrito</button>
-        </div>
+
+    <section id="productos" class="gallery">
+        {% for product in products %}
         <div class="item">
-            <img src="{{ url_for('static', filename='images/joyas1.png') }}" alt="Joya 2">
-            <button onclick="addToCart('Joya 2')">Agregar al carrito</button>
-        </div>
-        <div class="item">
-            <img src="{{ url_for('static', filename='images/joyas1.png') }}" alt="Joya 3">
-            <button onclick="addToCart('Joya 3')">Agregar al carrito</button>
+            <img src="{{ url_for('static', filename=product.image_url) }}" alt="{{ product.name }}">
+            <div class="product-info">
+                <h3>{{ product.name }}</h3>
+                <p class="price">${{ "%.2f"|format(product.price) }}</p>
+                <button onclick="addToCart({{ product.id }})">Agregar al carrito</button>
             </div>
         </div>
+        {% endfor %}
     </section>
-    <section class="cart">
+
+    <section class="cart" id="cart-section" style="display: none;">
         <div class="container">
             <h2>Carrito de Compras</h2>
             <ul id="cart-items">
                 <!-- Los artículos del carrito se agregarán aquí -->
             </ul>
+            <div class="cart-total">
+                <h3>Total: $<span id="cart-total">0.00</span></h3>
+                <button onclick="checkout()">Proceder al pago</button>
+            </div>
         </div>
     </section>
+
+    <footer>
+        <div class="container">
+            <p>Síguenos en nuestras redes sociales</p>
+            <div class="social-links">
+                <a href="https://www.instagram.com/zugar.accesorios/" target="_blank">
+                    <i class="fab fa-instagram"></i> Instagram
+                </a>
+                <a href="#" target="_blank">
+                    <i class="fab fa-facebook"></i> Facebook
+                </a>
+                <a href="#" target="_blank">
+                    <i class="fab fa-whatsapp"></i> WhatsApp
+                </a>
+            </div>
+            <p>&copy; 2024 ZUGAR. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
     <script>
-        function addToCart(item) {
-            const cartItems = document.getElementById('cart-items');
-            const li = document.createElement('li');
-            li.textContent = item;
-            cartItems.appendChild(li);
+        let cart = [];
+        const cartSection = document.getElementById('cart-section');
+        const cartIcon = document.getElementById('cart-icon');
+        const cartCount = document.getElementById('cart-count');
+
+        cartIcon.addEventListener('click', (e) => {
+            e.preventDefault();
+            cartSection.style.display = cartSection.style.display === 'none' ? 'block' : 'none';
+        });
+
+        function addToCart(productId) {
+            fetch(`/api/cart/add`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    product_id: productId,
+                    quantity: 1
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                updateCart();
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function updateCart() {
+            // Aquí implementaremos la actualización del carrito
+            cartCount.textContent = cart.length;
+        }
+
+        function checkout() {
+            // Aquí implementaremos el proceso de pago
+            alert('Proceso de pago en desarrollo');
         }
     </script>
-<footer style="background: #333; color: #fff; text-align: center; padding: 20px; margin-top: 20px;">
-    <p>Síguenos en:</p>
-    <a href="https://www.instagram.com/zugar.accesorios/" target="_blank" style="color: #fff; text-decoration: none;">
-        <i class="fab fa-instagram"></i> Instagram
-    </a>
-</footer>
-    
 </body>
 </html>

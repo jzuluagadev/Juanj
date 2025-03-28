@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - ZUGAR</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Panel de Administración</h1>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('home') }}">Volver al sitio</a></li>
+                    <li><a href="{{ url_for('admin.logout') }}">Cerrar sesión</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="admin-section">
+            <h2>Gestionar Productos</h2>
+            <button onclick="showAddProductForm()" class="btn-primary">
+                <i class="fas fa-plus"></i> Agregar Producto
+            </button>
+
+            <div class="products-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Imagen</th>
+                            <th>Nombre</th>
+                            <th>Precio</th>
+                            <th>Stock</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for product in products %}
+                        <tr>
+                            <td>{{ product.id }}</td>
+                            <td><img src="{{ url_for('static', filename=product.image_url) }}" alt="{{ product.name }}" width="50"></td>
+                            <td>{{ product.name }}</td>
+                            <td>${{ "%.2f"|format(product.price) }}</td>
+                            <td>{{ product.stock }}</td>
+                            <td>
+                                <button onclick="editProduct({{ product.id }})" class="btn-edit">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button onclick="deleteProduct({{ product.id }})" class="btn-delete">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function showAddProductForm() {
+            // Implementar formulario para agregar producto
+        }
+
+        function editProduct(productId) {
+            // Implementar edición de producto
+        }
+
+        function deleteProduct(productId) {
+            if (confirm('¿Estás seguro de que deseas eliminar este producto?')) {
+                fetch(`/api/admin/products/${productId}`, {
+                    method: 'DELETE'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload();
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html> 

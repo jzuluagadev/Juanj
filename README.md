@@ -1,23 +1,23 @@
-# ZUGAR - Tienda de Joyas y Accesorios
+# ZUGAR - Tienda de Joyería
 
-Sitio web de comercio electrónico para la venta de joyas y accesorios.
+Sitio web de comercio electrónico para una tienda de joyería, desarrollado con Flask.
 
 ## Características
 
-- Catálogo de productos con diseño horizontal
+- Catálogo de productos con imágenes múltiples
+- Carrusel de imágenes por producto
 - Sistema de carrito de compras
+- Diseño responsive y moderno
+- Integración con WhatsApp
 - Panel de administración
-- Autenticación de usuarios
-- Diseño responsive
-- Base de datos SQLite
+- Sistema de respaldo automático de imágenes
 
 ## Requisitos
 
 - Python 3.8 o superior
 - Flask
-- SQLAlchemy
-- Flask-Login
-- Flask-WTF
+- SQLite
+- Otros requisitos en requirements.txt
 
 ## Instalación
 
@@ -27,7 +27,7 @@ git clone https://github.com/tu-usuario/zugar.git
 cd zugar
 ```
 
-2. Crear un entorno virtual:
+2. Crear entorno virtual:
 ```bash
 python -m venv venv
 source venv/bin/activate  # En Windows: venv\Scripts\activate
@@ -43,14 +43,14 @@ pip install -r requirements.txt
 python init_db.py
 ```
 
-5. Ejecutar la aplicación:
+5. Iniciar el servidor:
 ```bash
 python web.py
 ```
 
-## Acceso
+## Uso
 
-- Sitio web: http://localhost:5000
+- Acceder a la tienda: http://localhost:5000
 - Panel de administración: http://localhost:5000/admin
   - Usuario: admin
   - Contraseña: admin123
@@ -59,24 +59,19 @@ python web.py
 
 ```
 zugar/
-├── instance/           # Base de datos SQLite
-├── models/            # Modelos de la base de datos
-├── static/            # Archivos estáticos (CSS, JS, imágenes)
-├── templates/         # Plantillas HTML
-├── web.py            # Aplicación principal
-├── config.py         # Configuración
-├── init_db.py        # Script de inicialización
-└── requirements.txt  # Dependencias
+├── static/
+│   ├── css/
+│   ├── js/
+│   └── img/
+├── templates/
+├── models/
+├── instance/
+├── backup_images/
+├── web.py
+├── init_db.py
+└── requirements.txt
 ```
-
-## Contribuir
-
-1. Fork el repositorio
-2. Crear una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abrir un Pull Request
 
 ## Licencia
 
-Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles. 
+Este proyecto está bajo la Licencia MIT. 

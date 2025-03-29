@@ -1,0 +1,492 @@
+[1mdiff --git a/.gitignore b/.gitignore[m
+[1mindex a295ebb..82ba276 100644[m
+[1m--- a/.gitignore[m
+[1m+++ b/.gitignore[m
+[36m@@ -35,11 +35,72 @@[m [mENV/[m
+ *.db[m
+ *.sqlite3[m
+ [m
+[32m+[m[32m# Logs[m
+[32m+[m[32m*.log[m
+[32m+[m
+ # Environment variables[m
+ .env[m
+ [m
+[31m-# Logs[m
+[31m-*.log[m
+[32m+[m[32m# Backup images[m
+[32m+[m[32mbackup_images/[m
+[32m+[m
+[32m+[m[32m# Keep product images[m
+[32m+[m[32m!static/img/products/*.png[m
+[32m+[m[32m!static/img/products/*.jpg[m
+[32m+[m[32m!static/img/products/*.jpeg[m
+ [m
+ # Local development[m
+[31m-instance/ [m
+\ No newline at end of file[m
+[32m+[m[32minstance/[m
+[32m+[m
+[32m+[m[32m# Entorno virtual[m
+[32m+[m[32mvenv/[m
+[32m+[m[32menv/[m
+[32m+[m[32mENV/[m
+[32m+[m
+[32m+[m[32m# Archivos de Python[m
+[32m+[m[32m__pycache__/[m
+[32m+[m[32m*.py[cod][m
+[32m+[m[32m*$py.class[m
+[32m+[m[32m*.so[m
+[32m+[m[32m.Python[m
+[32m+[m[32mbuild/[m
+[32m+[m[32mdevelop-eggs/[m
+[32m+[m[32mdist/[m
+[32m+[m[32mdownloads/[m
+[32m+[m[32meggs/[m
+[32m+[m[32m.eggs/[m
+[32m+[m[32mlib/[m
+[32m+[m[32mlib64/[m
+[32m+[m[32mparts/[m
+[32m+[m[32msdist/[m
+[32m+[m[32mvar/[m
+[32m+[m[32mwheels/[m
+[32m+[m[32m*.egg-info/[m
+[32m+[m[32m.installed.cfg[m
+[32m+[m[32m*.egg[m
+[32m+[m
+[32m+[m[32m# Base de datos[m
+[32m+[m[32m*.db[m
+[32m+[m[32m*.sqlite3[m
+[32m+[m
+[32m+[m[32m# Archivos de entorno[m
+[32m+[m[32m.env[m
+[32m+[m[32m.env.local[m
+[32m+[m[32m.env.*.local[m
+[32m+[m
+[32m+[m[32m# Archivos de IDE[m
+[32m+[m[32m.idea/[m
+[32m+[m[32m.vscode/[m
+[32m+[m[32m*.swp[m
+[32m+[m[32m*.swo[m
+[32m+[m[32m.DS_Store[m
+[32m+[m
+[32m+[m[32m# Archivos de logs[m
+[32m+[m[32m*.log[m
+[32m+[m
+[32m+[m[32m# Archivos temporales[m
+[32m+[m[32m*.tmp[m
+[32m+[m[32m*.temp[m
+[32m+[m[32m.coverage[m
+[32m+[m[32mhtmlcov/[m
+[32m+[m[32m.pytest_cache/[m[41m [m
+\ No newline at end of file[m
+[1mdiff --git a/README.md b/README.md[m
+[1mindex 33e97f3..3fd8751 100644[m
+[1m--- a/README.md[m
+[1m+++ b/README.md[m
+[36m@@ -1,23 +1,23 @@[m
+[31m-# ZUGAR - Tienda de Joyas y Accesorios[m
+[32m+[m[32m# ZUGAR - Tienda de Joyería[m
+ [m
+[31m-Sitio web de comercio electrónico para la venta de joyas y accesorios.[m
+[32m+[m[32mSitio web de comercio electrónico para una tienda de joyería, desarrollado con Flask.[m
+ [m
+ ## Características[m
+ [m
+[31m-- Catálogo de productos con diseño horizontal[m
+[32m+[m[32m- Catálogo de productos con imágenes múltiples[m
+[32m+[m[32m- Carrusel de imágenes por producto[m
+ - Sistema de carrito de compras[m
+[32m+[m[32m- Diseño responsive y moderno[m
+[32m+[m[32m- Integración con WhatsApp[m
+ - Panel de administración[m
+[31m-- Autenticación de usuarios[m
+[31m-- Diseño responsive[m
+[31m-- Base de datos SQLite[m
+[32m+[m[32m- Sistema de respaldo automático de imágenes[m
+ [m
+ ## Requisitos[m
+ [m
+ - Python 3.8 o superior[m
+ - Flask[m
+[31m-- SQLAlchemy[m
+[31m-- Flask-Login[m
+[31m-- Flask-WTF[m
+[32m+[m[32m- SQLite[m
+[32m+[m[32m- Otros requisitos en requirements.txt[m
+ [m
+ ## Instalación[m
+ [m
+[36m@@ -27,7 +27,7 @@[m [mgit clone https://github.com/tu-usuario/zugar.git[m
+ cd zugar[m
+ ```[m
+ [m
+[31m-2. Crear un entorno virtual:[m
+[32m+[m[32m2. Crear entorno virtual:[m
+ ```bash[m
+ python -m venv venv[m
+ source venv/bin/activate  # En Windows: venv\Scripts\activate[m
+[36m@@ -43,14 +43,14 @@[m [mpip install -r requirements.txt[m
+ python init_db.py[m
+ ```[m
+ [m
+[31m-5. Ejecutar la aplicación:[m
+[32m+[m[32m5. Iniciar el servidor:[m
+ ```bash[m
+ python web.py[m
+ ```[m
+ [m
+[31m-## Acceso[m
+[32m+[m[32m## Uso[m
+ [m
+[31m-- Sitio web: http://localhost:5000[m
+[32m+[m[32m- Acceder a la tienda: http://localhost:5000[m
+ - Panel de administración: http://localhost:5000/admin[m
+   - Usuario: admin[m
+   - Contraseña: admin123[m
+[36m@@ -59,24 +59,19 @@[m [mpython web.py[m
+ [m
+ ```[m
+ zugar/[m
+[31m-├── instance/           # Base de datos SQLite[m
+[31m-├── models/            # Modelos de la base de datos[m
+[31m-├── static/            # Archivos estáticos (CSS, JS, imágenes)[m
+[31m-├── templates/         # Plantillas HTML[m
+[31m-├── web.py            # Aplicación principal[m
+[31m-├── config.py         # Configuración[m
+[31m-├── init_db.py        # Script de inicialización[m
+[31m-└── requirements.txt  # Dependencias[m
+[32m+[m[32m├── static/[m
+[32m+[m[32m│   ├── css/[m
+[32m+[m[32m│   ├── js/[m
+[32m+[m[32m│   └── img/[m
+[32m+[m[32m├── templates/[m
+[32m+[m[32m├── models/[m
+[32m+[m[32m├── instance/[m
+[32m+[m[32m├── backup_images/[m
+[32m+[m[32m├── web.py[m
+[32m+[m[32m├── init_db.py[m
+[32m+[m[32m└── requirements.txt[m
+ ```[m
+ [m
+[31m-## Contribuir[m
+[31m-[m
+[31m-1. Fork el repositorio[m
+[31m-2. Crear una rama para tu feature (`git checkout -b feature/AmazingFeature`)[m
+[31m-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)[m
+[31m-4. Push a la rama (`git push origin feature/AmazingFeature`)[m
+[31m-5. Abrir un Pull Request[m
+[31m-[m
+ ## Licencia[m
+ [m
+[31m-Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles. [m
+\ No newline at end of file[m
+[32m+[m[32mEste proyecto está bajo la Licencia MIT.[m[41m [m
+\ No newline at end of file[m
+[1mdiff --git a/backup_images.py b/backup_images.py[m
+[1mnew file mode 100644[m
+[1mindex 0000000..e1b19df[m
+[1m--- /dev/null[m
+[1m+++ b/backup_images.py[m
+[36m@@ -0,0 +1,69 @@[m
+[32m+[m[32mimport os[m
+[32m+[m[32mimport shutil[m
+[32m+[m[32mfrom datetime import datetime[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef backup_images():[m
+[32m+[m[32m    # Crear directorio de respaldo si no existe[m
+[32m+[m[32m    backup_dir = 'backup_images'[m
+[32m+[m[32m    if not os.path.exists(backup_dir):[m
+[32m+[m[32m        os.makedirs(backup_dir)[m
+[32m+[m[32m        print(f"Directorio de respaldo '{backup_dir}' creado")[m
+[32m+[m
+[32m+[m[32m    # Crear subdirectorio con fecha[m
+[32m+[m[32m    date_str = datetime.now().strftime('%Y%m%d_%H%M%S')[m
+[32m+[m[32m    backup_path = os.path.join(backup_dir, date_str)[m
+[32m+[m[32m    os.makedirs(backup_path)[m
+[32m+[m[32m    print(f"Creando respaldo en: {backup_path}")[m
+[32m+[m
+[32m+[m[32m    # Copiar imágenes[m
+[32m+[m[32m    source_dir = 'static/img/products'[m
+[32m+[m[32m    if os.path.exists(source_dir):[m
+[32m+[m[32m        for file in os.listdir(source_dir):[m
+[32m+[m[32m            if file.endswith(('.png', '.jpg', '.jpeg')):[m
+[32m+[m[32m                source_file = os.path.join(source_dir, file)[m
+[32m+[m[32m                dest_file = os.path.join(backup_path, file)[m
+[32m+[m[32m                shutil.copy2(source_file, dest_file)[m
+[32m+[m[32m                print(f"Imagen respaldada: {file}")[m
+[32m+[m[32m    else:[m
+[32m+[m[32m        print(f"Directorio de origen '{source_dir}' no encontrado")[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef restore_images():[m
+[32m+[m[32m    backup_dir = 'backup_images'[m
+[32m+[m[32m    if not os.path.exists(backup_dir):[m
+[32m+[m[32m        print("No se encontró el directorio de respaldo")[m
+[32m+[m[32m        return[m
+[32m+[m
+[32m+[m[32m    # Obtener el respaldo más reciente[m
+[32m+[m[32m    backups = sorted([d for d in os.listdir(backup_dir)[m
+[32m+[m[32m                     if os.path.isdir(os.path.join(backup_dir, d))])[m
+[32m+[m[32m    if not backups:[m
+[32m+[m[32m        print("No se encontraron respaldos")[m
+[32m+[m[32m        return[m
+[32m+[m
+[32m+[m[32m    latest_backup = backups[-1][m
+[32m+[m[32m    backup_path = os.path.join(backup_dir, latest_backup)[m
+[32m+[m[32m    print(f"Restaurando desde: {backup_path}")[m
+[32m+[m
+[32m+[m[32m    # Crear directorio de destino si no existe[m
+[32m+[m[32m    dest_dir = 'static/img/products'[m
+[32m+[m[32m    if not os.path.exists(dest_dir):[m
+[32m+[m[32m        os.makedirs(dest_dir)[m
+[32m+[m[32m        print(f"Directorio de destino '{dest_dir}' creado")[m
+[32m+[m
+[32m+[m[32m    # Copiar imágenes[m
+[32m+[m[32m    for file in os.listdir(backup_path):[m
+[32m+[m[32m        if file.endswith(('.png', '.jpg', '.jpeg')):[m
+[32m+[m[32m            source_file = os.path.join(backup_path, file)[m
+[32m+[m[32m            dest_file = os.path.join(dest_dir, file)[m
+[32m+[m[32m            shutil.copy2(source_file, dest_file)[m
+[32m+[m[32m            print(f"Imagen restaurada: {file}")[m
+[32m+[m
+[32m+[m
+[32m+[m[32mif __name__ == '__main__':[m
+[32m+[m[32m    import sys[m
+[32m+[m[32m    if len(sys.argv) > 1 and sys.argv[1] == 'restore':[m
+[32m+[m[32m        restore_images()[m
+[32m+[m[32m    else:[m
+[32m+[m[32m        backup_images()[m
+[1mdiff --git a/backup_simple.py b/backup_simple.py[m
+[1mnew file mode 100644[m
+[1mindex 0000000..e1b19df[m
+[1m--- /dev/null[m
+[1m+++ b/backup_simple.py[m
+[36m@@ -0,0 +1,69 @@[m
+[32m+[m[32mimport os[m
+[32m+[m[32mimport shutil[m
+[32m+[m[32mfrom datetime import datetime[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef backup_images():[m
+[32m+[m[32m    # Crear directorio de respaldo si no existe[m
+[32m+[m[32m    backup_dir = 'backup_images'[m
+[32m+[m[32m    if not os.path.exists(backup_dir):[m
+[32m+[m[32m        os.makedirs(backup_dir)[m
+[32m+[m[32m        print(f"Directorio de respaldo '{backup_dir}' creado")[m
+[32m+[m
+[32m+[m[32m    # Crear subdirectorio con fecha[m
+[32m+[m[32m    date_str = datetime.now().strftime('%Y%m%d_%H%M%S')[m
+[32m+[m[32m    backup_path = os.path.join(backup_dir, date_str)[m
+[32m+[m[32m    os.makedirs(backup_path)[m
+[32m+[m[32m    print(f"Creando respaldo en: {backup_path}")[m
+[32m+[m
+[32m+[m[32m    # Copiar imágenes[m
+[32m+[m[32m    source_dir = 'static/img/products'[m
+[32m+[m[32m    if os.path.exists(source_dir):[m
+[32m+[m[32m        for file in os.listdir(source_dir):[m
+[32m+[m[32m            if file.endswith(('.png', '.jpg', '.jpeg')):[m
+[32m+[m[32m                source_file = os.path.join(source_dir, file)[m
+[32m+[m[32m                dest_file = os.path.join(backup_path, file)[m
+[32m+[m[32m                shutil.copy2(source_file, dest_file)[m
+[32m+[m[32m                print(f"Imagen respaldada: {file}")[m
+[32m+[m[32m    else:[m
+[32m+[m[32m        print(f"Directorio de origen '{source_dir}' no encontrado")[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef restore_images():[m
+[32m+[m[32m    backup_dir = 'backup_images'[m
+[32m+[m[32m    if not os.path.exists(backup_dir):[m
+[32m+[m[32m        print("No se encontró el directorio de respaldo")[m
+[32m+[m[32m        return[m
+[32m+[m
+[32m+[m[32m    # Obtener el respaldo más reciente[m
+[32m+[m[32m    backups = sorted([d for d in os.listdir(backup_dir)[m
+[32m+[m[32m                     if os.path.isdir(os.path.join(backup_dir, d))])[m
+[32m+[m[32m    if not backups:[m
+[32m+[m[32m        print("No se encontraron respaldos")[m
+[32m+[m[32m        return[m
+[32m+[m
+[32m+[m[32m    latest_backup = backups[-1][m
+[32m+[m[32m    backup_path = os.path.join(backup_dir, latest_backup)[m
+[32m+[m[32m    print(f"Restaurando desde: {backup_path}")[m
+[32m+[m
+[32m+[m[32m    # Crear directorio de destino si no existe[m
+[32m+[m[32m    dest_dir = 'static/img/products'[m
+[32m+[m[32m    if not os.path.exists(dest_dir):[m
+[32m+[m[32m        os.makedirs(dest_dir)[m
+[32m+[m[32m        print(f"Directorio de destino '{dest_dir}' creado")[m
+[32m+[m
+[32m+[m[32m    # Copiar imágenes[m
+[32m+[m[32m    for file in os.listdir(backup_path):[m
+[32m+[m[32m        if file.endswith(('.png', '.jpg', '.jpeg')):[m
+[32m+[m[32m            source_file = os.path.join(backup_path, file)[m
+[32m+[m[32m            dest_file = os.path.join(dest_dir, file)[m
+[32m+[m[32m            shutil.copy2(source_file, dest_file)[m
+[32m+[m[32m            print(f"Imagen restaurada: {file}")[m
+[32m+[m
+[32m+[m
+[32m+[m[32mif __name__ == '__main__':[m
+[32m+[m[32m    import sys[m
+[32m+[m[32m    if len(sys.argv) > 1 and sys.argv[1] == 'restore':[m
+[32m+[m[32m        restore_images()[m
+[32m+[m[32m    else:[m
+[32m+[m[32m        backup_images()[m
+[1mdiff --git a/config.py b/config.py[m
+[1mindex 905b12e..bd98c8f 100644[m
+[1m--- a/config.py[m
+[1m+++ b/config.py[m
+[36m@@ -1,14 +1,27 @@[m
+[31m-import os[m
+[31m-from dotenv import load_dotenv[m
+[32m+[m[32m"""[m
+[32m+[m[32mConfiguración de la aplicación de la tienda de joyería.[m
+[32m+[m[32mDefine las variables de entorno y configuraciones necesarias.[m
+[32m+[m[32m"""[m
+ [m
+[31m-load_dotenv()[m
+[32m+[m[32mimport os[m
+[32m+[m[32mfrom datetime import timedelta[m
+ [m
+[31m-basedir = os.path.abspath(os.path.dirname(__file__))[m
+ [m
+ class Config:[m
+[31m-    SECRET_KEY = os.environ.get('SECRET_KEY') or 'dev-key-please-change-in-production'[m
+[31m-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \[m
+[31m-        'sqlite:///' + os.path.join(basedir, 'instance', 'zugar.db')[m
+[32m+[m[32m    """Clase de configuración principal."""[m
+[32m+[m[32m    # Configuración básica[m
+[32m+[m[32m    SECRET_KEY = os.environ.get([m
+[32m+[m[32m        'SECRET_KEY') or 'dev-key-please-change-in-production'[m
+[32m+[m[32m    SQLALCHEMY_DATABASE_URI = os.environ.get([m
+[32m+[m[32m        'DATABASE_URL') or 'sqlite:///zugar.db'[m
+     SQLALCHEMY_TRACK_MODIFICATIONS = False[m
+[31m-    UPLOAD_FOLDER = os.path.join(basedir, 'static', 'img', 'products')[m
+[31m-    MAX_CONTENT_LENGTH = 16 * 1024 * 1024  # 16MB max file size [m
+\ No newline at end of file[m
+[32m+[m
+[32m+[m[32m    # Configuración de sesión[m
+[32m+[m[32m    PERMANENT_SESSION_LIFETIME = timedelta(days=1)[m
+[32m+[m[32m    SESSION_COOKIE_SECURE = True[m
+[32m+[m[32m    SESSION_COOKIE_HTTPONLY = True[m
+[32m+[m
+[32m+[m[32m    # Configuración de archivos[m
+[32m+[m[32m    MAX_CONTENT_LENGTH = 16 * 1024 * 1024  # 16MB max-limit[m
+[32m+[m[32m    UPLOAD_FOLDER = os.path.join('static', 'img', 'products')[m
+[32m+[m[32m    ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}[m
+[1mdiff --git a/init_db.py b/init_db.py[m
+[1mindex 19bc3a6..07c3713 100644[m
+[1m--- a/init_db.py[m
+[1m+++ b/init_db.py[m
+[36m@@ -1,8 +1,8 @@[m
+ from web import app[m
+[31m-from models.product import db, Product[m
+[32m+[m[32mfrom models.product import db, Product, ProductImage[m
+ from models.user import User[m
+ import os[m
+[31m-import shutil[m
+[32m+[m[32mfrom werkzeug.security import generate_password_hash[m
+ [m
+ [m
+ def init_db():[m
+[36m@@ -16,56 +16,116 @@[m [mdef init_db():[m
+         db.create_all()[m
+         print("Base de datos inicializada")[m
+ [m
+[31m-        # Crear usuario administrador[m
+[32m+[m[32m        # Crear directorio de imágenes si no existe[m
+[32m+[m[32m        if not os.path.exists('static/img/products'):[m
+[32m+[m[32m            os.makedirs('static/img/products')[m
+[32m+[m[32m            print("Directorio de imágenes creado")[m
+[32m+[m
+[32m+[m[32m        # Crear usuario administrador si no existe[m
+         admin = User.query.filter_by(username='admin').first()[m
+         if not admin:[m
+             admin = User([m
+                 username='admin',[m
+                 email='admin@zugar.com',[m
+[31m-                is_admin=True[m
+[32m+[m[32m                password_hash=generate_password_hash('admin123')[m
+             )[m
+[31m-            admin.set_password('admin123')[m
+             db.session.add(admin)[m
+             print("Usuario administrador creado")[m
+ [m
+         # Crear productos de ejemplo[m
+         products = [[m
+[31m-            Product([m
+[31m-                name='Collar de Perlas',[m
+[31m-                description='Hermoso collar de perlas naturales con cierre de oro',[m
+[31m-                price=299.99,[m
+[31m-                image_url='img/products/joyas1.png',[m
+[31m-                category='Collares',[m
+[31m-                stock=10[m
+[31m-            ),[m
+[31m-            Product([m
+[31m-                name='Anillo de Diamante',[m
+[31m-                description='Anillo de compromiso con diamante central',[m
+[31m-                price=999.99,[m
+[31m-                image_url='img/products/joyas1.png',[m
+[31m-                category='Anillos',[m
+[31m-                stock=5[m
+[31m-            ),[m
+[31m-            Product([m
+[31m-                name='Pulsera de Oro',[m
+[31m-                description='Pulsera de oro 14k con diseño moderno',[m
+[31m-                price=799.99,[m
+[31m-                image_url='img/products/joyas1.png',[m
+[31m-                category='Pulseras',[m
+[31m-                stock=8[m
+[31m-            )[m
+[32m+[m[32m            {[m
+[32m+[m[32m                'name': 'Collar de Perlas',[m
+[32m+[m[32m                'description': 'Elegante collar de perlas naturales con cierre de oro. Perfecto para ocasiones especiales.',[m
+[32m+[m[32m                'price': 299.99,[m
+[32m+[m[32m                'stock': 10,[m
+[32m+[m[32m                'material': 'Perlas naturales, Oro 14k',[m
+[32m+[m[32m                'color': 'Blanco, Dorado',[m
+[32m+[m[32m                'dimensions': '45cm de largo',[m
+[32m+[m[32m                'images': [[m
+[32m+[m[32m                    {'url': 'img/products/joyas1.png', 'is_main': True},[m
+[32m+[m[32m                    {'url': 'img/products/joyas2.png', 'is_main': False},[m
+[32m+[m[32m                    {'url': 'img/products/joyas3.png', 'is_main': False}[m
+[32m+[m[32m                ][m
+[32m+[m[32m            },[m
+[32m+[m[32m            {[m
+[32m+[m[32m                'name': 'Anillo de Diamante',[m
+[32m+[m[32m                'description': 'Hermoso anillo de compromiso con diamante central y detalles en oro blanco.',[m
+[32m+[m[32m                'price': 999.99,[m
+[32m+[m[32m                'stock': 5,[m
+[32m+[m[32m                'material': 'Diamante, Oro blanco 18k',[m
+[32m+[m[32m                'color': 'Transparente, Blanco',[m
+[32m+[m[32m                'dimensions': 'Talla 6-10',[m
+[32m+[m[32m                'images': [[m
+[32m+[m[32m                    {'url': 'img/products/joyas2.png', 'is_main': True},[m
+[32m+[m[32m                    {'url': 'img/products/joyas1.png', 'is_main': False},[m
+[32m+[m[32m                    {'url': 'img/products/joyas3.png', 'is_main': False}[m
+[32m+[m[32m                ][m
+[32m+[m[32m            },[m
+[32m+[m[32m            {[m
+[32m+[m[32m                'name': 'Pulsera de Oro',[m
+[32m+[m[32m                'description': 'Pulsera de oro amarillo con diseño moderno y elegante.',[m
+[32m+[m[32m                'price': 499.99,[m
+[32m+[m[32m                'stock': 8,[m
+[32m+[m[32m                'material': 'Oro amarillo 14k',[m
+[32m+[m[32m                'color': 'Dorado',[m
+[32m+[m[32m                'dimensions': '18cm de largo',[m
+[32m+[m[32m                'images': [[m
+[32m+[m[32m                    {'url': 'img/products/joyas3.png', 'is_main': True},[m
+[32m+[m[32m                    {'url': 'img/products/joyas1.png', 'is_main': False},[m
+[32m+[m[32m                    {'url': 'img/products/joyas2.png', 'is_main': False}[m
+[32m+[m[32m                ][m
+[32m+[m[32m            }[m
+         ][m
+ [m
+[31m-        for product in products:[m
+[31m-            if not Product.query.filter_by(name=product.name).first():[m
+[32m+[m[32m        # Verificar y crear imágenes de ejemplo si no existen[m
+[32m+[m[32m        example_images = ['joyas1.png', 'joyas2.png', 'joyas3.png'][m
+[32m+[m[32m        for image in example_images:[m
+[32m+[m[32m            image_path = os.path.join('static', 'img', 'products', image)[m
+[32m+[m[32m            if not os.path.exi

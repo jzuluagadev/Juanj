@@ -1,11 +1,10 @@
-<!-- filepath: /c:/Users/usuario/Desktop/Juanj/templates/index.html -->
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZUGAR - Joyas y Accesorios</title>
+    <title>{{ product.name }} - ZUGAR</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap"
@@ -21,8 +20,8 @@
             <nav>
                 <ul>
                     <li><a href="{{ url_for('home') }}">Inicio</a></li>
-                    <li><a href="#productos">Productos</a></li>
-                    <li><a href="#contacto">Contacto</a></li>
+                    <li><a href="{{ url_for('home') }}#productos">Productos</a></li>
+                    <li><a href="{{ url_for('home') }}#contacto">Contacto</a></li>
                     <li><a href="#" id="cart-icon"><i class="fas fa-shopping-cart"></i> <span
                                 id="cart-count">0</span></a></li>
                 </ul>
@@ -30,56 +29,48 @@
         </div>
     </header>
 
-    <section class="showcase">
+    <section class="product-detail">
         <div class="container">
-            <h1>ZUGAR ACCESORIOS</h1>
-            <p>Descubre nuestra exclusiva colección de joyas y accesorios</p>
-        </div>
-    </section>
-
-    <section id="productos" class="gallery">
-        {% for product in products %}
-        <div class="item">
-            <div class="image-carousel">
-                <div class="carousel-container">
-                    {% for image in product.images %}
-                    <div class="carousel-slide {% if loop.first %}active{% endif %}">
-                        <a href="{{ url_for('product_detail', product_id=product.id) }}">
-                            <img src="{{ url_for('static', filename=image.url) }}" alt="{{ product.name }}">
-                        </a>
+            <div class="product-detail-content">
+                <div class="product-images">
+                    <div class="image-carousel">
+                        <div class="carousel-container">
+                            {% for image in product.images %}
+                            <div class="carousel-slide {% if loop.first %}active{% endif %}">
+                                <img src="{{ url_for('static', filename=image.url) }}" alt="{{ product.name }}">
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <button class="carousel-button prev" onclick="moveCarousel(this, -1)">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="carousel-button next" onclick="moveCarousel(this, 1)">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                        <div class="carousel-dots">
+                            {% for image in product.images %}
+                            <span class="dot {% if loop.first %}active{% endif %}" onclick="goToSlide(this)"></span>
+                            {% endfor %}
+                        </div>
                     </div>
-                    {% endfor %}
                 </div>
-                <button class="carousel-button prev" onclick="moveCarousel(this, -1)">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <button class="carousel-button next" onclick="moveCarousel(this, 1)">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
-                <div class="carousel-dots">
-                    {% for image in product.images %}
-                    <span class="dot {% if loop.first %}active{% endif %}" onclick="goToSlide(this)"></span>
-                    {% endfor %}
+                <div class="product-info">
+                    <h1>{{ product.name }}</h1>
+                    <p class="price">${{ "%.2f"|format(product.price) }}</p>
+                    <div class="product-description">
+                        <h2>Descripción</h2>
+                        <p>{{ product.description }}</p>
+                    </div>
+                    <div class="product-details">
+                        <h2>Detalles</h2>
+                        <ul>
+                            <li><strong>Material:</strong> {{ product.material }}</li>
+                            <li><strong>Color:</strong> {{ product.color }}</li>
+                            <li><strong>Dimensiones:</strong> {{ product.dimensions }}</li>
+                        </ul>
+                    </div>
+                    <button onclick="addToCart('{{ product.id }}')" class="add-to-cart">Agregar al carrito</button>
                 </div>
-            </div>
-            <div class="product-info">
-                <h3>{{ product.name }}</h3>
-                <p class="price">${{ "%.2f"|format(product.price) }}</p>
-                <button onclick="addToCart('{{ product.id }}')">Agregar al carrito</button>
-            </div>
-        </div>
-        {% endfor %}
-    </section>
-
-    <section class="cart" id="cart-section" style="display: none;">
-        <div class="container">
-            <h2>Carrito de Compras</h2>
-            <ul id="cart-items">
-                <!-- Los artículos del carrito se agregarán aquí -->
-            </ul>
-            <div class="cart-total">
-                <h3>Total: $<span id="cart-total-amount">0.00</span></h3>
-                <button onclick="checkout()">Proceder al pago</button>
             </div>
         </div>
     </section>
@@ -102,21 +93,49 @@
         </div>
     </footer>
 
-    <!-- Botón flotante de WhatsApp -->
     <a href="https://wa.me/573204835708" class="whatsapp-button" target="_blank">
         <i class="fab fa-whatsapp"></i>
     </a>
 
     <script>
-        let cart = [];
-        const cartSection = document.getElementById('cart-section');
-        const cartIcon = document.getElementById('cart-icon');
-        const cartCount = document.getElementById('cart-count');
+        // Funciones del carrusel
+        function moveCarousel(button, direction) {
+            const carousel = button.parentElement;
+            const container = carousel.querySelector('.carousel-container');
+            const slides = container.querySelectorAll('.carousel-slide');
+            const dots = carousel.querySelectorAll('.dot');
+            const currentSlide = container.querySelector('.carousel-slide.active');
+            const currentIndex = Array.from(slides).indexOf(currentSlide);
+            const nextIndex = (currentIndex + direction + slides.length) % slides.length;
 
-        cartIcon.addEventListener('click', (e) => {
-            e.preventDefault();
-            cartSection.style.display = cartSection.style.display === 'none' ? 'block' : 'none';
-        });
+            currentSlide.classList.remove('active');
+            currentSlide.classList.add(direction > 0 ? 'prev' : 'next');
+            slides[nextIndex].classList.remove('prev', 'next');
+            slides[nextIndex].classList.add('active');
+
+            dots[currentIndex].classList.remove('active');
+            dots[nextIndex].classList.add('active');
+        }
+
+        function goToSlide(dot) {
+            const carousel = dot.parentElement.parentElement;
+            const container = carousel.querySelector('.carousel-container');
+            const slides = container.querySelectorAll('.carousel-slide');
+            const dots = carousel.querySelectorAll('.dot');
+            const currentIndex = Array.from(dots).indexOf(dot);
+            const currentSlide = container.querySelector('.carousel-slide.active');
+            const currentSlideIndex = Array.from(slides).indexOf(currentSlide);
+
+            const direction = currentIndex > currentSlideIndex ? 1 : -1;
+
+            currentSlide.classList.remove('active');
+            currentSlide.classList.add(direction > 0 ? 'prev' : 'next');
+            slides[currentIndex].classList.remove('prev', 'next');
+            slides[currentIndex].classList.add('active');
+
+            dots.forEach(d => d.classList.remove('active'));
+            dot.classList.add('active');
+        }
 
         function addToCart(productId) {
             fetch(`/api/cart/add`, {
@@ -137,57 +156,7 @@
         }
 
         function updateCart() {
-            // Aquí implementaremos la actualización del carrito
-            cartCount.textContent = cart.length;
-        }
-
-        function checkout() {
-            // Aquí implementaremos el proceso de pago
-            alert('Proceso de pago en desarrollo');
-        }
-
-        // Funciones del carrusel
-        function moveCarousel(button, direction) {
-            const carousel = button.parentElement;
-            const container = carousel.querySelector('.carousel-container');
-            const slides = container.querySelectorAll('.carousel-slide');
-            const dots = carousel.querySelectorAll('.dot');
-            const currentSlide = container.querySelector('.carousel-slide.active');
-            const currentIndex = Array.from(slides).indexOf(currentSlide);
-            const nextIndex = (currentIndex + direction + slides.length) % slides.length;
-
-            // Actualizar slides
-            currentSlide.classList.remove('active');
-            currentSlide.classList.add(direction > 0 ? 'prev' : 'next');
-            slides[nextIndex].classList.remove('prev', 'next');
-            slides[nextIndex].classList.add('active');
-
-            // Actualizar dots
-            dots[currentIndex].classList.remove('active');
-            dots[nextIndex].classList.add('active');
-        }
-
-        function goToSlide(dot) {
-            const carousel = dot.parentElement.parentElement;
-            const container = carousel.querySelector('.carousel-container');
-            const slides = container.querySelectorAll('.carousel-slide');
-            const dots = carousel.querySelectorAll('.dot');
-            const currentIndex = Array.from(dots).indexOf(dot);
-            const currentSlide = container.querySelector('.carousel-slide.active');
-            const currentSlideIndex = Array.from(slides).indexOf(currentSlide);
-
-            // Determinar la dirección del movimiento
-            const direction = currentIndex > currentSlideIndex ? 1 : -1;
-
-            // Actualizar slides
-            currentSlide.classList.remove('active');
-            currentSlide.classList.add(direction > 0 ? 'prev' : 'next');
-            slides[currentIndex].classList.remove('prev', 'next');
-            slides[currentIndex].classList.add('active');
-
-            // Actualizar dots
-            dots.forEach(d => d.classList.remove('active'));
-            dot.classList.add('active');
+            // Implementar actualización del carrito
         }
     </script>
 </body>

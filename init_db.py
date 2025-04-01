@@ -6,44 +6,58 @@ import os
 
 
 def init_db():
-    # Crear el directorio instance si no existe
-    if not os.path.exists('instance'):
-        os.makedirs('instance')
-
+    """Inicializa la base de datos con datos de ejemplo"""
     with app.app_context():
         # Crear todas las tablas
         db.create_all()
 
-        # Crear usuario administrador
+        # Verificar si ya existe un usuario administrador
         admin = User.query.filter_by(username='admin').first()
         if not admin:
             admin = User(
                 username='admin',
-                password=generate_password_hash('admin123'),
+                email='admin@example.com',
                 is_admin=True
             )
+            admin.set_password('admin123')
             db.session.add(admin)
+            db.session.commit()
 
         # Datos de productos
-        products_data = [
+        products = [
             {
                 'name': 'Pulsera Miyuki',
-                'description': 'Hermosa pulsera elaborada con cuentas Miyuki de alta calidad',
+                'description': 'Pulsera elegante con cuentas Miyuki en tonos dorados',
                 'price': 89.99,
                 'stock': 10,
                 'material': 'Cuentas Miyuki',
-                'color': 'Multicolor',
-                'dimensions': '18cm ajustable',
+                'color': 'Dorado',
+                'dimensions': '18cm',
                 'images': [
                     {'url': 'img/products/joyas1.png', 'is_main': True},
                     {'url': 'img/products/joyas2.png', 'is_main': False},
                     {'url': 'img/products/joyas3.png', 'is_main': False}
                 ]
+            },
+            {
+                'name': 'Collar Cristales',
+                'description': 'Elegante gargantilla con cristales facetados disponible en tres colores: plateado, negro y blanco',
+                'price': 79.99,
+                'stock': 15,
+                'material': 'Cristales facetados',
+                'color': 'Plateado/Negro/Blanco',
+                'dimensions': '35cm',
+                'images': [
+                    {'url': 'img/products/choker1.png.jpg', 'is_main': True},
+                    {'url': 'img/products/choker2.png.jpg', 'is_main': False},
+                    {'url': 'img/products/choker3.png.jpg', 'is_main': False},
+                    {'url': 'img/products/choker4.png.jpg', 'is_main': False}
+                ]
             }
         ]
 
         # Crear productos
-        for product_data in products_data:
+        for product_data in products:
             product = Product.query.filter_by(
                 name=product_data['name']).first()
             if not product:
@@ -51,10 +65,10 @@ def init_db():
                     name=product_data['name'],
                     description=product_data['description'],
                     price=product_data['price'],
-                    stock=product_data.get('stock', 0),
-                    material=product_data.get('material', ''),
-                    color=product_data.get('color', ''),
-                    dimensions=product_data.get('dimensions', '')
+                    stock=product_data['stock'],
+                    material=product_data['material'],
+                    color=product_data['color'],
+                    dimensions=product_data['dimensions'],
                 )
                 db.session.add(product)
                 db.session.flush()  # Para obtener el ID del producto

@@ -53,6 +53,20 @@ def init_db():
                     {'url': 'img/products/choker3.png.jpg', 'is_main': False},
                     {'url': 'img/products/choker4.png.jpg', 'is_main': False}
                 ]
+            },
+            {
+                'name': 'Pulsera Elegante',
+                'description': 'Hermosa pulsera con diseño elegante y moderno',
+                'price': 69.99,
+                'stock': 12,
+                'material': 'Metal y cristales',
+                'color': 'Plateado',
+                'dimensions': '19cm',
+                'images': [
+                    {'url': 'img/products/pulsoh1.jpg', 'is_main': True},
+                    {'url': 'img/products/pulsoh2.jpg', 'is_main': False},
+                    {'url': 'img/products/pulsoh3.jpg', 'is_main': False}
+                ]
             }
         ]
 

@@ -67,6 +67,22 @@ def init_db():
                     {'url': 'img/products/pulsoh2.jpg', 'is_main': False},
                     {'url': 'img/products/pulsoh3.jpg', 'is_main': False}
                 ]
+            },
+            {
+                'name': 'Broche Elegante',
+                'description': 'Hermoso broche con diseño elegante y moderno, perfecto para complementar cualquier atuendo. Fabricado con materiales de alta calidad y detalles delicados.',
+                'price': 59.99,
+                'stock': 8,
+                'material': 'Metal y cristales',
+                'color': 'Plateado y dorado',
+                'dimensions': '4cm x 3cm',
+                'images': [
+                    {'url': 'img/products/topo1.jpg', 'is_main': True},
+                    {'url': 'img/products/topo2.jpg', 'is_main': False},
+                    {'url': 'img/products/topo3.jpg', 'is_main': False},
+                    {'url': 'img/products/topo4.jpg', 'is_main': False},
+                    {'url': 'img/products/topo5.jpg', 'is_main': False}
+                ]
             }
         ]
 

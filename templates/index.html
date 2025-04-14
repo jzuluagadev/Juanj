@@ -11,13 +11,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body>
     <header>
         <div class="container">
-            <h1>ZUGAR</h1>
+            <a href="/" style="text-decoration: none;">
+                <h1>ZUGAR</h1>
+            </a>
             <nav>
                 <ul>
                     <li><a href="{{ url_for('home') }}">Inicio</a></li>
@@ -84,6 +86,34 @@
         </div>
     </section>
 
+    <section id="contacto" class="contact-section">
+        <div class="container">
+            <h2>Contacto</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fab fa-whatsapp"></i>
+                    <h3>WhatsApp</h3>
+                    <p><a href="https://wa.me/573204835708" target="_blank">+57 320 483 5708</a></p>
+                </div>
+                <div class="contact-item">
+                    <i class="fab fa-instagram"></i>
+                    <h3>Instagram</h3>
+                    <p><a href="https://www.instagram.com/zugar.accesorios/" target="_blank">@zugar.accesorios</a></p>
+                </div>
+                <div class="contact-item">
+                    <i class="fab fa-facebook"></i>
+                    <h3>Facebook</h3>
+                    <p><a href="https://www.facebook.com/zugar.accesorios" target="_blank">ZUGAR Accesorios</a></p>
+                </div>
+                <div class="contact-item">
+                    <i class="far fa-envelope"></i>
+                    <h3>Email</h3>
+                    <p><a href="mailto:zugar.accesorios@gmail.com">zugar.accesorios@gmail.com</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <footer>
         <div class="container">
             <p>Síguenos en nuestras redes sociales</p>
@@ -91,7 +121,7 @@
                 <a href="https://www.instagram.com/zugar.accesorios/" target="_blank">
                     <i class="fab fa-instagram"></i> Instagram
                 </a>
-                <a href="#" target="_blank">
+                <a href="https://www.facebook.com/zugar.accesorios" target="_blank">
                     <i class="fab fa-facebook"></i> Facebook
                 </a>
                 <a href="https://wa.me/573204835708" target="_blank">

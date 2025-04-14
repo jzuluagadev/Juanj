@@ -10,7 +10,7 @@ def init_db():
     with app.app_context():
         # Crear todas las tablas
         db.create_all()
-
+        
         # Verificar si ya existe un usuario administrador
         admin = User.query.filter_by(username='admin').first()
         if not admin:
@@ -22,7 +22,7 @@ def init_db():
             admin.set_password('admin123')
             db.session.add(admin)
             db.session.commit()
-
+        
         # Datos de productos
         products = [
             {
@@ -100,20 +100,6 @@ def init_db():
                     {'url': 'img/products/topo3.jpg', 'is_main': False},
                     {'url': 'img/products/topo4.jpg', 'is_main': False},
                     {'url': 'img/products/topo5.jpg', 'is_main': False}
-                ]
-            },
-            {
-                'name': 'Joyas de Plata',
-                'description': 'Conjunto de joyas de plata de alta calidad. Incluye collar y pulsera.',
-                'price': 39.99,
-                'stock': 12,
-                'material': 'Plata 925',
-                'color': 'Plateado',
-                'dimensions': 'Collar: 45cm, Pulsera: 18cm',
-                'images': [
-                    {'url': 'img/products/joyas1.png', 'is_main': True},
-                    {'url': 'img/products/joyas2.png', 'is_main': False},
-                    {'url': 'img/products/joyas3.png', 'is_main': False}
                 ]
             },
             {
@@ -198,10 +184,10 @@ def init_db():
                         is_main=image_data['is_main']
                     )
                     db.session.add(image)
-
+        
         # Guardar cambios
         db.session.commit()
 
 
 if __name__ == '__main__':
-    init_db()
+    init_db() 

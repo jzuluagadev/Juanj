@@ -197,7 +197,6 @@ def create_product():
     product = Product(
         name=data.get('name'),
         description=data.get('description'),
-        price=float(data.get('price')),
         image_url=image_url,
         category=data.get('category'),
         stock=int(data.get('stock'))

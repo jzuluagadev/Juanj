@@ -34,7 +34,6 @@
                             <th>ID</th>
                             <th>Imagen</th>
                             <th>Nombre</th>
-                            <th>Precio</th>
                             <th>Stock</th>
                             <th>Acciones</th>
                         </tr>
@@ -45,7 +44,6 @@
                             <td>{{ product.id }}</td>
                             <td><img src="{{ url_for('static', filename=product.image_url) }}" alt="{{ product.name }}" width="50"></td>
                             <td>{{ product.name }}</td>
-                            <td>${{ "%.2f"|format(product.price) }}</td>
                             <td>{{ product.stock }}</td>
                             <td>
                                 <button onclick="editProduct({{ product.id }})" class="btn-edit">

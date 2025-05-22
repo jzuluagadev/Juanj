@@ -26,9 +26,50 @@ def init_db():
         # Datos de productos
         products = [
             {
+                'name': 'Collar Cristales',
+                'description': 'Elegante gargantilla con cristales facetados disponible en tres colores: plateado, negro y blanco',
+                'stock': 15,
+                'material': 'Cristales facetados',
+                'color': 'Plateado/Negro/Blanco',
+                'dimensions': '35cm',
+                'images': [
+                    {'url': 'img/products/choker1.png.jpg', 'is_main': True},
+                    {'url': 'img/products/choker2.png.jpg', 'is_main': False},
+                    {'url': 'img/products/choker3.png.jpg', 'is_main': False},
+                    {'url': 'img/products/choker4.png.jpg', 'is_main': False}
+                ]
+            },
+            {
+                'name': 'Pulsera Elegante',
+                'description': 'Hermosa pulsera con diseño elegante y moderno',
+                'stock': 12,
+                'material': 'Metal y cristales',
+                'color': 'Plateado',
+                'dimensions': '19cm',
+                'images': [
+                    {'url': 'img/products/pulsoh1.jpg', 'is_main': True},
+                    {'url': 'img/products/pulsoh2.jpg', 'is_main': False},
+                    {'url': 'img/products/pulsoh3.jpg', 'is_main': False}
+                ]
+            },
+            {
+                'name': 'Broche Elegante',
+                'description': 'Hermoso broche con diseño elegante y moderno, perfecto para complementar cualquier atuendo. Fabricado con materiales de alta calidad y detalles delicados.',
+                'stock': 8,
+                'material': 'Metal y cristales',
+                'color': 'Plateado y dorado',
+                'dimensions': '4cm x 3cm',
+                'images': [
+                    {'url': 'img/products/topo1.jpg', 'is_main': True},
+                    {'url': 'img/products/topo2.jpg', 'is_main': False},
+                    {'url': 'img/products/topo3.jpg', 'is_main': False},
+                    {'url': 'img/products/topo4.jpg', 'is_main': False},
+                    {'url': 'img/products/topo5.jpg', 'is_main': False}
+                ]
+            },
+            {
                 'name': 'Pulsera M',
                 'description': 'Pulsera M',
-                'price': 29.99,
                 'stock': 12,
                 'material': 'Metal y cristales',
                 'color': 'Plateado',
@@ -43,7 +84,6 @@ def init_db():
             {
                 'name': 'Aretes Maxi',
                 'description': 'Maxiaretes',
-                'price': 34.99,
                 'stock': 15,
                 'material': 'Metal bañado en oro',
                 'color': 'Dorado',
@@ -58,55 +98,8 @@ def init_db():
                 ]
             },
             {
-                'name': 'Pulsera Miyuki',
-                'description': 'Hermosa pulsera hecha con cuentas Miyuki de alta calidad. Perfecta para cualquier ocasión.',
-                'price': 29.99,
-                'stock': 10,
-                'material': 'Cuentas Miyuki, hilo elástico',
-                'color': 'Dorado',
-                'dimensions': 'Ajustable, aproximadamente 18cm',
-                'images': [
-                    {'url': 'img/products/pulsoh1.jpg', 'is_main': True},
-                    {'url': 'img/products/pulsoh2.jpg', 'is_main': False},
-                    {'url': 'img/products/pulsoh3.jpg', 'is_main': False}
-                ]
-            },
-            {
-                'name': 'Choker Elegante',
-                'description': 'Choker elegante con diseño minimalista. Ideal para eventos especiales.',
-                'price': 24.99,
-                'stock': 15,
-                'material': 'Tela satinada, broche ajustable',
-                'color': 'Negro',
-                'dimensions': 'Ajustable, 35-40cm',
-                'images': [
-                    {'url': 'img/products/choker1.png.jpg', 'is_main': True},
-                    {'url': 'img/products/choker2.png.jpg', 'is_main': False},
-                    {'url': 'img/products/choker3.png.jpg', 'is_main': False},
-                    {'url': 'img/products/choker4.png.jpg', 'is_main': False}
-                ]
-            },
-            {
-                'name': 'Topo Decorativo',
-                'description': 'Topo decorativo con diseño único. Perfecto para complementar cualquier atuendo.',
-                'price': 19.99,
-                'stock': 20,
-                'material': 'Metal, cristales',
-                'color': 'Plateado',
-                'dimensions': '3cm x 2cm',
-                'images': [
-                    {'url': 'img/products/topo1.jpg', 'is_main': True},
-                    {'url': 'img/products/topo2.jpg', 'is_main': False},
-                    {'url': 'img/products/topo3.jpg', 'is_main': False},
-                    {'url': 'img/products/topo4.jpg', 'is_main': False},
-                    {'url': 'img/products/topo5.jpg', 'is_main': False}
-                ]
-            },
-
-            {
                 'name': 'Conjunto de Plata',
                 'description': 'Elegante conjunto de joyas en plata con diseño moderno y minimalista.',
-                'price': 49.99,
                 'stock': 8,
                 'material': 'Plata 925',
                 'color': 'Plateado',
@@ -120,7 +113,6 @@ def init_db():
             {
                 'name': 'Conjunto de Corazones',
                 'description': 'Hermoso conjunto de joyas con motivos de corazones. Perfecto para regalar o usar en ocasiones especiales.',
-                'price': 34.99,
                 'stock': 15,
                 'material': 'Metal bañado en plata',
                 'color': 'Plateado',
@@ -134,7 +126,6 @@ def init_db():
             {
                 'name': 'Set de Búho en Miyuki',
                 'description': 'Encantador conjunto de joyas con motivos de búho elaborado con cuentas Miyuki. Perfecto para amantes de la naturaleza y la moda.',
-                'price': 32.99,
                 'stock': 12,
                 'material': 'Cuentas Miyuki, hilo elástico',
                 'color': 'Multicolor',
@@ -147,7 +138,6 @@ def init_db():
             {
                 'name': 'Pulsera Tejida en Cristales',
                 'description': 'Pulsera tejida en cristales de miyuki con diseño elegante y moderno. Perfecta para complementar cualquier atuendo.',
-                'price': 27.99,
                 'stock': 15,
                 'material': 'Cristales Miyuki, hilo elástico',
                 'color': 'Multicolor',
@@ -156,6 +146,45 @@ def init_db():
                     {'url': 'img/products/pulsera1.jpg', 'is_main': True},
                     {'url': 'img/products/pulsera2.jpg', 'is_main': False},
                     {'url': 'img/products/pulsera3.jpg', 'is_main': False}
+                ]
+            },
+            {
+                'name': 'Collar de Perlas',
+                'description': 'Elegante collar de perlas naturales con cierre de oro. Perfecto para ocasiones especiales.',
+                'stock': 10,
+                'material': 'Perlas naturales, Oro 14k',
+                'color': 'Blanco, Dorado',
+                'dimensions': '45cm de largo',
+                'images': [
+                    {'url': 'img/products/joyas1.png', 'is_main': True},
+                    {'url': 'img/products/joyas2.png', 'is_main': False},
+                    {'url': 'img/products/joyas3.png', 'is_main': False}
+                ]
+            },
+            {
+                'name': 'Anillo de Diamante',
+                'description': 'Hermoso anillo de compromiso con diamante central y detalles en oro blanco.',
+                'stock': 5,
+                'material': 'Diamante, Oro blanco 18k',
+                'color': 'Transparente, Blanco',
+                'dimensions': 'Talla 6-10',
+                'images': [
+                    {'url': 'img/products/joyas2.png', 'is_main': True},
+                    {'url': 'img/products/joyas1.png', 'is_main': False},
+                    {'url': 'img/products/joyas3.png', 'is_main': False}
+                ]
+            },
+            {
+                'name': 'Pulsera de Oro',
+                'description': 'Pulsera de oro amarillo con diseño moderno y elegante.',
+                'stock': 8,
+                'material': 'Oro amarillo 14k',
+                'color': 'Dorado',
+                'dimensions': '18cm de largo',
+                'images': [
+                    {'url': 'img/products/joyas3.png', 'is_main': True},
+                    {'url': 'img/products/joyas1.png', 'is_main': False},
+                    {'url': 'img/products/joyas2.png', 'is_main': False}
                 ]
             }
         ]
@@ -168,7 +197,6 @@ def init_db():
                 product = Product(
                     name=product_data['name'],
                     description=product_data['description'],
-                    price=product_data['price'],
                     stock=product_data['stock'],
                     material=product_data['material'],
                     color=product_data['color'],
